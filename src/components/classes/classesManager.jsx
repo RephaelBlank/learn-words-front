@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import ClassesList from './classesList';
 import ClassDetails from './classDetails';
-
+import TaskManager from '../tasks/taskManager';
 
 function ClassesManager({setLoggedIn}) {
     const [classes, setClasses] = useState([]); 
@@ -40,6 +40,7 @@ function ClassesManager({setLoggedIn}) {
         <h1>Welcome!</h1>
         {!selectedClass ? (
           <>
+          <TaskManager  />
           <ClassesList classes={classes} onSelectClass={setSelectedClass} />
           </>
         ): (
