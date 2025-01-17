@@ -18,11 +18,12 @@ function SignIn({setIsLoggedIn}) {
       };
       
       try {
-        const { data } = await axios.post("http://localhost:3000/auth/login", form,
-          { withCredentials: true }
-        );
+        const { data } = await axios.post("http://localhost:3000/auth/login", form);
         setIsLoggedIn(true)
-        navigate('../')
+        console.log (data);
+        sessionStorage.setItem('token', data.access_token);         
+
+        navigate('../class')
       } catch (error){
         if (error.response && error.response.status === 401) {
           console.log(error.response.data.message);
