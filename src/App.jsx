@@ -3,7 +3,7 @@ import {  BrowserRouter,  Routes,  Route,} from "react-router-dom"
 import SignIn from './components/SignIn'
 import Home from './components/home'
 import Cookies from 'js-cookie'
-import ClassesManager from './components/classesManager'
+import ClassesManager from './components/classes/classesManager'
 
 function App() {
   const [isLoggedIn, setLoggedIn ] = useState(false);
