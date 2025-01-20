@@ -6,11 +6,12 @@ function ClassDetails({ selectedClass, onBack }) {
   const [assignments, setAssignments] = useState([]);
   const [allTasks, setAllTasks] = useState([]); 
   const [selectedTaskID, setSelectedTaskID] = useState(null);
+  const token = sessionStorage.getItem('token');
 
   useEffect(() => {
     async function fetchClassDetails() {
       try {
-        const token = sessionStorage.getItem('token');
+        //token = sessionStorage.getItem('token');
         const { data } = await axios.get(`http://localhost:3000/classes/${selectedClass.classID}`, {
           headers: {
             Authorization: 'Bearer ' + token,
@@ -24,10 +25,33 @@ function ClassDetails({ selectedClass, onBack }) {
     }
     fetchClassDetails();
 
-    
+}, [selectedClass]);
 
-  
-  });
+    const assignTask = async() => {
+        try {
+            console.log(token); 
+            const taskID = selectedTaskID || 1; 
+            const classID = selectedClass.classID;
+            const response = await axios.post('http://localhost:3000/teachers/assign', {
+                resourceType: "class",
+                classID,
+                taskID
+            },
+                {
+                headers: {
+                  Authorization: `Bearer ${token}` 
+                }
+              });
+            console.log('Task assigned successfully:', response.data);
+          } catch (error) {
+            console.error('Error:', error);
+          }
+      };
+
+    const handleTaskSelection = (e) => {
+        setSelectedTaskID(e.target.value); 
+    };
+ 
 
   return (
     <div>
@@ -44,6 +68,16 @@ function ClassDetails({ selectedClass, onBack }) {
           <li key={assignment.taskID}>{assignment.tasks.taskName}</li>
         ))}
       </ul>
+
+      <h3>Assign Task:</h3>
+      <select onChange={handleTaskSelection} value={selectedTaskID || ''}>
+        <option value="">Select a task</option>
+        <option value="task1">Task 1</option>
+        <option value="task2">Task 2</option>
+        <option value="task3">Task 3</option>
+      </select>
+      
+      <button onClick={assignTask}>Assign Task</button>
 
      
 
