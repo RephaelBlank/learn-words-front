@@ -11,7 +11,6 @@ function ClassDetails({ selectedClass, onBack }) {
   useEffect(() => {
     async function fetchClassDetails() {
       try {
-        //token = sessionStorage.getItem('token');
         const { data } = await axios.get(`http://localhost:3000/classes/${selectedClass.classID}`, {
           headers: {
             Authorization: 'Bearer ' + token,
@@ -26,6 +25,16 @@ function ClassDetails({ selectedClass, onBack }) {
     fetchClassDetails();
 
 }, [selectedClass]);
+
+    const fetchTasks = async() => {
+      try {
+        const  {data}  = await axios.get('http://localhost:3000/tasks'); 
+        setAllTasks(data); 
+        console.log (data);
+      } catch (error) {
+        console.error(error); 
+      }
+    }
 
     const assignTask = async() => {
         try {
@@ -48,8 +57,8 @@ function ClassDetails({ selectedClass, onBack }) {
           }
       };
 
-    const handleTaskSelection = (e) => {
-        setSelectedTaskID(e.target.value); 
+    const handleTaskSelection = (task) => {
+        setSelectedTaskID(task.taskID); 
     };
  
 
@@ -69,15 +78,30 @@ function ClassDetails({ selectedClass, onBack }) {
         ))}
       </ul>
 
-      <h3>Assign Task:</h3>
-      <select onChange={handleTaskSelection} value={selectedTaskID || ''}>
-        <option value="">Select a task</option>
-        <option value="task1">Task 1</option>
-        <option value="task2">Task 2</option>
-        <option value="task3">Task 3</option>
-      </select>
+      {allTasks.length!==0? (
+        <>
+        <h3>Assign Task:</h3>
+
+        <ul>
+        {allTasks.map((task) => (
+          <li key={task.taskID} onClick={() => handleTaskSelection(task)}>
+            {task.taskName}
+          </li>
+        ))}
+      </ul>
+
+       
+        
+        <button onClick={assignTask}>Assign Task</button>
+        </>
+      ): (
+        <button onClick={fetchTasks}>Assign New Task</button>
+      )
+
+
+      }
+
       
-      <button onClick={assignTask}>Assign Task</button>
 
      
 

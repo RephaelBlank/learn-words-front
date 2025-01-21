@@ -7,7 +7,7 @@ function WordInput({ addWordToTask }) {
 
   const fetchSuggestions = async (query) => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/tasks?prefix=${query}`);
+      const { data } = await axios.get(`http://localhost:3000/tasks/words?prefix=${query}`);
       setSuggestions(data);
     } catch (error) {
       console.error(error);
