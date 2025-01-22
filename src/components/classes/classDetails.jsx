@@ -6,6 +6,7 @@ function ClassDetails({ selectedClass, onBack }) {
   const [assignments, setAssignments] = useState([]);
   const [allTasks, setAllTasks] = useState([]); 
   const [selectedTaskID, setSelectedTaskID] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null); 
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -57,8 +58,17 @@ function ClassDetails({ selectedClass, onBack }) {
           }
       };
 
-    const handleTaskSelection = (task) => {
-        setSelectedTaskID(task.taskID); 
+    const handleTaskSelection = async (task) => {
+        const id = task.taskID;
+        console.log(id);
+        setSelectedTaskID(id); 
+        try{
+          const {data} = await axios.get(`http://localhost:3000/tasks/${id}`); 
+          setSelectedTask(data); 
+          console.log (data);
+        } catch (error) {
+          console.error('Error:', error);
+        }
     };
  
 
@@ -89,9 +99,19 @@ function ClassDetails({ selectedClass, onBack }) {
           </li>
         ))}
       </ul>
-
-       
-        
+      {selectedTask ? (
+          Array.isArray(selectedTask.words) ? (
+            <ul>
+              {selectedTask.words.map((word) => (
+                <li key={word.wordID}>{word.wordName}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>Task details loaded, but not a list</p>
+          )
+        ) : (
+          <p>Select a task to see details</p>
+        )}
         <button onClick={assignTask}>Assign Task</button>
         </>
       ): (
