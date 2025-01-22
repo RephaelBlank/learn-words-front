@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+import { Button } from '@mui/material'
 
 
 
@@ -52,19 +53,11 @@ function SignIn({setIsLoggedIn}) {
             required
             style={{ padding: '10px', fontSize: '16px' }}
           />
-          <button
-            type="submit"
-            style={{
-              padding: '10px',
-              fontSize: '16px',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
+          <Button variant='contained' color='primary'
+            type="submit">
+            
             Submit
-          </button>
+          </Button>
         </form>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       </div>
