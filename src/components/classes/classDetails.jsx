@@ -91,7 +91,7 @@ function ClassDetails({ selectedClass, onBack }) {
           } catch (error) {
             console.error('Error:', error);
           }
-      
+      setTaskToSend(null); 
     }; 
  
 
