@@ -10,12 +10,14 @@ function ClassesManager({setLoggedIn}) {
     const [selectedClass, setSelectedClass] = useState(null);
     let navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect( () => {
         async function fetchData() {
             try {
                 const token = sessionStorage.getItem('token'); 
                 console.log (token); 
-                const { data } = await axios.get("http://localhost:3000/classes", {
+                const { data } = await axios.get(`${API_URL}/classes`, {
                     headers: ({
                         Authorization: 'Bearer ' + token
                     })

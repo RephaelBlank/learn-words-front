@@ -5,9 +5,11 @@ function WordInput({ addWordToTask }) {
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const fetchSuggestions = async (query) => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/tasks/words?prefix=${query}`);
+      const { data } = await axios.get(`${API_URL}/tasks/words?prefix=${query}`);
       setSuggestions(data);
     } catch (error) {
       console.error(error);

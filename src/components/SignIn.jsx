@@ -9,6 +9,7 @@ function SignIn({setIsLoggedIn}) {
     const [errorMessage, setErrorMessage] = useState('')
     let navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -19,7 +20,7 @@ function SignIn({setIsLoggedIn}) {
       };
       
       try {
-        const { data } = await axios.post("http://localhost:3000/auth/login", form);
+        const { data } = await axios.post(`${API_URL}/auth/login`, form);
         setIsLoggedIn(true)
         console.log (data);
         sessionStorage.setItem('token', data.access_token);         

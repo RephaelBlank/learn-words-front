@@ -11,10 +11,12 @@ function ClassDetails({ selectedClass, onBack }) {
   const [taskToSend, setTaskToSend] = useState(null); 
   const token = sessionStorage.getItem('token');
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     async function fetchClassDetails() {
       try {
-        const { data } = await axios.get(`http://localhost:3000/classes/${selectedClass.classID}`, {
+        const { data } = await axios.get(`${API_URL}/classes/${selectedClass.classID}`, {
           headers: {
             Authorization: 'Bearer ' + token,
           },
@@ -31,7 +33,7 @@ function ClassDetails({ selectedClass, onBack }) {
 
     const fetchTasks = async() => {
       try {
-        const  {data}  = await axios.get('http://localhost:3000/tasks'); 
+        const  {data}  = await axios.get(`${API_URL}/tasks`); 
         setAllTasks(data); 
         console.log (data);
       } catch (error) {
@@ -44,7 +46,7 @@ function ClassDetails({ selectedClass, onBack }) {
             console.log(token); 
             const taskID = selectedTaskID || 1; 
             const classID = selectedClass.classID;
-            const response = await axios.post('http://localhost:3000/teachers/assign', {
+            const response = await axios.post(`${API_URL}/teachers/assign`, {
                 resourceType: "class",
                 classID,
                 taskID
@@ -64,7 +66,7 @@ function ClassDetails({ selectedClass, onBack }) {
       const id = task.taskID;
       setSelectedTaskID(id); 
       try{
-          const {data} = await axios.get(`http://localhost:3000/tasks/${id}`); 
+          const {data} = await axios.get(`${API_URL}/tasks/${id}`); 
           setSelectedTask(data); 
         } catch (error) {
           console.error('Error:', error);
@@ -76,7 +78,7 @@ function ClassDetails({ selectedClass, onBack }) {
         const taskID = taskToSend.assignedID;
         console.log(taskToSend);  
         console.log (taskID); 
-        const response = await axios.post('http://localhost:3000/teachers/send', {taskID,
+        const response = await axios.post(`${API_URL}/teachers/send`, {taskID,
           resourceType: "assignedTask",
           
           },

@@ -5,7 +5,9 @@ import axios from 'axios';
 
 function NewTask({ onClose }) {
   const [selectedWords, setSelectedWords] = useState([]);
-  const [taskName, setTaskName] = useState (''); 
+  const [taskName, setTaskName] = useState ('');
+  
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const addWordToTask = (word) => {
     if (selectedWords.find((w) => w.wordID === word.wordID)) {
@@ -33,7 +35,7 @@ function NewTask({ onClose }) {
         return;
       }
     try {
-        const response = await axios.post('http://localhost:3000/tasks', {
+        const response = await axios.post(`${API_URL}/tasks`, {
           taskName,
           wordIds: selectedWords.map((word) => word.wordID),
         });
