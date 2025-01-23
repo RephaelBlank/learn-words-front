@@ -7,6 +7,8 @@ function ClassDetails({ selectedClass, onBack }) {
   const [allTasks, setAllTasks] = useState([]); 
   const [selectedTaskID, setSelectedTaskID] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null); 
+
+  const [taskToSend, setTaskToSend] = useState(null); 
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -59,17 +61,36 @@ function ClassDetails({ selectedClass, onBack }) {
       };
 
     const handleTaskSelection = async (task) => {
-        const id = task.taskID;
-        console.log(id);
-        setSelectedTaskID(id); 
-        try{
+      const id = task.taskID;
+      setSelectedTaskID(id); 
+      try{
           const {data} = await axios.get(`http://localhost:3000/tasks/${id}`); 
           setSelectedTask(data); 
-          console.log (data);
         } catch (error) {
           console.error('Error:', error);
         }
     };
+
+    const sendTask = async () => {
+      try {
+        const taskID = taskToSend.assignedID;
+        console.log(taskToSend);  
+        console.log (taskID); 
+        const response = await axios.post('http://localhost:3000/teachers/send', {taskID,
+          resourceType: "assignedTask",
+          
+          },
+          {
+          headers: {
+            Authorization: `Bearer ${token}` 
+          }
+        });
+        console.log('Task send successfully:', response.data);
+          } catch (error) {
+            console.error('Error:', error);
+          }
+      
+    }; 
  
 
   return (
@@ -84,9 +105,16 @@ function ClassDetails({ selectedClass, onBack }) {
       <h3>Assignments:</h3>
       <ul>
         {assignments.map((assignment) => (
-          <li key={assignment.taskID}>{assignment.tasks.taskName}</li>
+          <li key={assignment.assignedID} onClick={() => setTaskToSend(assignment)}>
+            {assignment.tasks.taskName}</li>
         ))}
       </ul>
+
+      {taskToSend? (
+        <>
+        <button onClick={sendTask}>Send Task</button>
+        </>
+      ):(<></>)}
 
       {allTasks.length!==0? (
         <>
