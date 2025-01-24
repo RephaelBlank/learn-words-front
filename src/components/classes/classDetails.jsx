@@ -44,7 +44,7 @@ function ClassDetails({ selectedClass, onBack }) {
     const assignTask = async() => {
         try {
             console.log(token); 
-            const taskID = selectedTaskID || 1; 
+            const taskID = selectedTaskID; 
             const classID = selectedClass.classID;
             const response = await axios.post(`${API_URL}/teachers/assign`, {
                 resourceType: "class",
@@ -60,7 +60,9 @@ function ClassDetails({ selectedClass, onBack }) {
           } catch (error) {
             console.error('Error:', error);
           }
-      };
+        setSelectedTaskID(null); 
+        setSelectedTask(null); 
+    };
 
     const handleTaskSelection = async (task) => {
       const id = task.taskID;
@@ -131,18 +133,21 @@ function ClassDetails({ selectedClass, onBack }) {
       </ul>
       {selectedTask ? (
           Array.isArray(selectedTask.words) ? (
+            <>
             <ul>
               {selectedTask.words.map((word) => (
                 <li key={word.wordID}>{word.wordName}</li>
               ))}
             </ul>
+             <button onClick={assignTask}>Assign Task</button>
+             </>
           ) : (
             <p>Task details loaded, but not a list</p>
           )
         ) : (
           <p>Select a task to see details</p>
         )}
-        <button onClick={assignTask}>Assign Task</button>
+       
         </>
       ): (
         <button onClick={fetchTasks}>Assign New Task</button>
