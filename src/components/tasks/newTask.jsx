@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import   WordInput  from './wordInput';
 import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 
 
 function NewTask({ onClose }) {
@@ -35,7 +36,7 @@ function NewTask({ onClose }) {
         return;
       }
     try {
-        const response = await axios.post(`${API_URL}/tasks`, {
+        const response = await axiosInstance.post(`/tasks`, {
           taskName,
           wordIds: selectedWords.map((word) => word.wordID),
         });

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 
 function ClassDetails({ selectedClass, onBack }) {
   const [students, setStudents] = useState([]);
@@ -33,7 +34,7 @@ function ClassDetails({ selectedClass, onBack }) {
 
     const fetchTasks = async() => {
       try {
-        const  {data}  = await axios.get(`${API_URL}/tasks`); 
+        const  {data}  = await axiosInstance.get(`/tasks`); 
         setAllTasks(data); 
         console.log (data);
       } catch (error) {
@@ -68,7 +69,7 @@ function ClassDetails({ selectedClass, onBack }) {
       const id = task.taskID;
       setSelectedTaskID(id); 
       try{
-          const {data} = await axios.get(`${API_URL}/tasks/${id}`); 
+          const {data} = await axiosInstance.get(`/tasks/${id}`); 
           setSelectedTask(data); 
         } catch (error) {
           console.error('Error:', error);

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 
 function WordInput({ addWordToTask }) {
   const [input, setInput] = useState('');
@@ -9,7 +10,7 @@ function WordInput({ addWordToTask }) {
 
   const fetchSuggestions = async (query) => {
     try {
-      const { data } = await axios.get(`${API_URL}/tasks/words?prefix=${query}`);
+      const {data} = await axiosInstance.get(`/tasks/words?prefix=${query}`); 
       setSuggestions(data);
     } catch (error) {
       console.error(error);
