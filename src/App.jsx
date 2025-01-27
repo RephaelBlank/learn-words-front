@@ -34,7 +34,7 @@ function App() {
     :
     <Routes>
         <Route path="/" element={<SignIn setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
-        <Route path="/sign-up" element={<SignUp setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
+        <Route path="/sign-up" element={<SignUp setIsLoggedIn={setLoggedIn}  />} />
     </Routes>
 }
     </BrowserRouter>
