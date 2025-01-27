@@ -5,7 +5,7 @@ import { Button, Grid2, Link } from '@mui/material'
 
 
 
-function SignIn({setIsLoggedIn}) {
+function SignUp({setIsLoggedIn}) {
     const [errorMessage, setErrorMessage] = useState('')
     let navigate = useNavigate();
 
@@ -15,12 +15,12 @@ function SignIn({setIsLoggedIn}) {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       const form = {
-        teacherID: formData.get('id'),
+        teacherName: formData.get('name'),
         password: formData.get('password')
       };
       
       try {
-        const { data } = await axios.post(`${API_URL}/auth/login`, form);
+        const { data } = await axios.post(`${API_URL}/auth/sign-up`, form);
         setIsLoggedIn(true)
         console.log (data);
         sessionStorage.setItem('token', data.access_token);         
@@ -39,11 +39,11 @@ function SignIn({setIsLoggedIn}) {
 
     return (
       <div style={{ maxWidth: '400px', margin: 'auto', padding: '20px', textAlign: 'center' }}>
-        <h2>Sign In</h2>
+        <h2>Sign Up</h2>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <input
-            name="id"
-            placeholder="id"
+            name="name"
+            placeholder="name"
             required
             style={{ padding: '10px', fontSize: '16px' }}
           />
@@ -62,12 +62,12 @@ function SignIn({setIsLoggedIn}) {
         </form>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         <Grid2>
-                <Link href="sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/" variant="body2">
+                  Already have an account? Sign in
                 </Link>
               </Grid2>
       </div>
     );
   }
   
-  export default SignIn
+  export default SignUp
