@@ -17,11 +17,7 @@ function ClassDetails({ selectedClass, onBack }) {
   useEffect(() => {
     async function fetchClassDetails() {
       try {
-        const { data } = await axios.get(`${API_URL}/classes/${selectedClass.classID}`, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        });
+        const { data } = await axiosInstance.get(`/classes/${selectedClass.classID}`);
         setStudents(data.students);
         setAssignments(data.assignedTasks);
       } catch (error) {
@@ -47,16 +43,11 @@ function ClassDetails({ selectedClass, onBack }) {
             console.log(token); 
             const taskID = selectedTaskID; 
             const classID = selectedClass.classID;
-            const response = await axios.post(`${API_URL}/teachers/assign`, {
+            const response = await axiosInstance.post(`/teachers/assign`, {
                 resourceType: "class",
                 classID,
                 taskID
-            },
-                {
-                headers: {
-                  Authorization: `Bearer ${token}` 
-                }
-              });
+            });
             console.log('Task assigned successfully:', response.data);
           } catch (error) {
             console.error('Error:', error);
@@ -81,15 +72,10 @@ function ClassDetails({ selectedClass, onBack }) {
         const taskID = taskToSend.assignedID;
         console.log(taskToSend);  
         console.log (taskID); 
-        const response = await axios.post(`${API_URL}/teachers/send`, {taskID,
+        const response = await axiosInstance.post(`/teachers/send`, {taskID,
           resourceType: "assignedTask",
           
-          },
-          {
-          headers: {
-            Authorization: `Bearer ${token}` 
-          }
-        });
+          });
         console.log('Task send successfully:', response.data);
           } catch (error) {
             console.error('Error:', error);

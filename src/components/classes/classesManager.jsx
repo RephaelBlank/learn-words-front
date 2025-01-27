@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ClassesList from './classesList';
 import ClassDetails from './classDetails';
 import TaskManager from '../tasks/taskManager';
+import axiosInstance from '../../axiosInstance';
 
 function ClassesManager({setLoggedIn}) {
     const [classes, setClasses] = useState([]); 
@@ -17,11 +18,7 @@ function ClassesManager({setLoggedIn}) {
             try {
                 const token = sessionStorage.getItem('token'); 
                 console.log (token); 
-                const { data } = await axios.get(`${API_URL}/classes`, {
-                    headers: ({
-                        Authorization: 'Bearer ' + token
-                    })
-                });
+                const { data } = await axiosInstance.get(`/classes`);
                 setClasses(data); 
             }
             catch (error){
