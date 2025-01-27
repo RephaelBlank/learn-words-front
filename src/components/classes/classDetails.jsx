@@ -54,6 +54,7 @@ function ClassDetails({ selectedClass, onBack }) {
           }
         setSelectedTaskID(null); 
         setSelectedTask(null); 
+        setAllTasks([]); 
     };
 
     const handleTaskSelection = async (task) => {
