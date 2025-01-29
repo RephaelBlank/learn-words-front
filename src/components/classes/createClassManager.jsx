@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NewClass from './newClass';
 
-function CreateClassManager() {
+function CreateClassManager({ onClassCreated }) {
     const [isCreatingClass, setIsCreatingClass] = useState(false); 
   
     const openClassCreator = () => {
@@ -11,6 +11,10 @@ function CreateClassManager() {
     const closeClassCreator = () => {
       setIsCreatingClass(false); 
     };
+
+    const classCreated = () => {
+        onClassCreated(); 
+    }
   
     return (
       <div>
@@ -19,7 +23,7 @@ function CreateClassManager() {
             <button onClick={openClassCreator}>Create New Class</button>
           </>
         ) : (
-          <NewClass onClose={closeClassCreator} />
+          <NewClass onClose={closeClassCreator} onClassCreated={classCreated} />
         )}
       </div>
     );

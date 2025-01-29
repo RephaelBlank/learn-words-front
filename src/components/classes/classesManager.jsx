@@ -14,23 +14,24 @@ function ClassesManager({setLoggedIn}) {
 
     const API_URL = import.meta.env.VITE_API_URL;
 
-    useEffect( () => {
-        async function fetchData() {
-            try {
-                const token = sessionStorage.getItem('token'); 
-                console.log (token); 
-                const { data } = await axiosInstance.get(`/classes`);
-                setClasses(data); 
-            }
-            catch (error){
-                if (error.response && error.response.status === 401){ 
-                    sessionStorage.removeItem('token'); 
-                    setLoggedIn(false); 
-                    navigate('../')
-                }
-                console.log(error)
-            }            
+    async function fetchData() {
+        try {
+            const token = sessionStorage.getItem('token'); 
+            console.log (token); 
+            const { data } = await axiosInstance.get(`/classes`);
+            setClasses(data); 
         }
+        catch (error){
+            if (error.response && error.response.status === 401){ 
+                sessionStorage.removeItem('token'); 
+                setLoggedIn(false); 
+                navigate('../')
+            }
+            console.log(error)
+        }            
+    }
+
+    useEffect( () => {
         fetchData();
     }, [setLoggedIn, navigate]); 
 
@@ -40,7 +41,7 @@ function ClassesManager({setLoggedIn}) {
         {!selectedClass ? (
           <>
           <TaskManager  />
-          <CreateClassManager />
+          <CreateClassManager onClassCreated={fetchData}/>
           <ClassesList classes={classes} onSelectClass={setSelectedClass} />
           </>
         ): (

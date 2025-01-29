@@ -24,7 +24,7 @@ function SignUp({setIsLoggedIn}) {
         setIsLoggedIn(true)
         console.log (data);
         sessionStorage.setItem('token', data.access_token); 
-        sessionStorage.setItem('id', formData.teacherID);        
+        sessionStorage.setItem('id', data.teacherID);        
 
         navigate('../class')
       } catch (error){
