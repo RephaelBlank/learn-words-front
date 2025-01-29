@@ -23,7 +23,8 @@ function SignIn({setIsLoggedIn}) {
         const { data } = await axios.post(`${API_URL}/auth/login`, form);
         setIsLoggedIn(true)
         console.log (data);
-        sessionStorage.setItem('token', data.access_token);         
+        sessionStorage.setItem('token', data.access_token);  
+        sessionStorage.setItem('id', formData.get('id'));       
 
         navigate('../class')
       } catch (error){

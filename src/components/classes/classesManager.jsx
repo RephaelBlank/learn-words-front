@@ -5,6 +5,7 @@ import ClassesList from './classesList';
 import ClassDetails from './classDetails';
 import TaskManager from '../tasks/taskManager';
 import axiosInstance from '../../axiosInstance';
+import CreateClassManager from './createClassManager';
 
 function ClassesManager({setLoggedIn}) {
     const [classes, setClasses] = useState([]); 
@@ -33,13 +34,13 @@ function ClassesManager({setLoggedIn}) {
         fetchData();
     }, [setLoggedIn, navigate]); 
 
-
     return (
       <div>
         <h1>Welcome!</h1>
         {!selectedClass ? (
           <>
           <TaskManager  />
+          <CreateClassManager />
           <ClassesList classes={classes} onSelectClass={setSelectedClass} />
           </>
         ): (
