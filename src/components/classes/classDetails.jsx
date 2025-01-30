@@ -11,6 +11,7 @@ function ClassDetails({ selectedClass, onBack }) {
 
   const [taskToSend, setTaskToSend] = useState(null); 
   const token = sessionStorage.getItem('token');
+  const [taskLink, setTaskLink] = useState(null);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -83,6 +84,24 @@ function ClassDetails({ selectedClass, onBack }) {
           }
       setTaskToSend(null); 
     }; 
+
+    const getTaskLink = async (assignedID) => {
+      try {
+        const { data } = await axiosInstance.get(`/auth/assignedTask/${assignedID}`);
+        const generatedLink = `${API_URL}/performance/list/students?authToken=${data}`;
+        setTaskLink(generatedLink);
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          alert('Task has not been sent yet!');
+        } else {
+          console.error('Error:', error);
+        }
+      }
+    };
+
+    const closeLink = () => {
+      setTaskLink(null); 
+    };
  
 
   return (
@@ -98,9 +117,20 @@ function ClassDetails({ selectedClass, onBack }) {
       <ul>
         {assignments.map((assignment) => (
           <li key={assignment.assignedID} onClick={() => setTaskToSend(assignment)}>
-            {assignment.tasks.taskName}</li>
+            {assignment.tasks.taskName}
+            <button onClick={() => getTaskLink(assignment.assignedID)}>
+            Get Task Link
+            </button>
+            </li>
         ))}
       </ul>
+
+      {taskLink && (
+        <div>
+          <p>Task Link: <a href={taskLink} target="_blank" rel="noopener noreferrer">{taskLink}</a></p>
+          <button onClick={closeLink}>Close</button>
+        </div>
+      )}
 
       {taskToSend? (
         <>
