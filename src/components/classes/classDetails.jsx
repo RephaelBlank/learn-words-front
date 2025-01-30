@@ -16,18 +16,19 @@ function ClassDetails({ selectedClass, onBack }) {
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    async function fetchClassDetails() {
-      try {
-        const { data } = await axiosInstance.get(`/classes/${selectedClass.classID}`);
-        setStudents(data.students);
-        setAssignments(data.assignedTasks);
-      } catch (error) {
-        console.error(error);
-      }
-    }
     fetchClassDetails();
 
 }, [selectedClass]);
+
+  async function fetchClassDetails() {
+    try {
+      const { data } = await axiosInstance.get(`/classes/${selectedClass.classID}`);
+      setStudents(data.students);
+      setAssignments(data.assignedTasks);
+    } catch (error) {
+      console.error(error);
+    }
+    }
 
     const fetchTasks = async() => {
       try {
@@ -56,6 +57,7 @@ function ClassDetails({ selectedClass, onBack }) {
         setSelectedTaskID(null); 
         setSelectedTask(null); 
         setAllTasks([]); 
+        fetchClassDetails();
     };
 
     const handleTaskSelection = async (task) => {
