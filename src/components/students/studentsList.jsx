@@ -7,6 +7,8 @@ function StudentsList({ setIsLoggedIn }) {
   const [selectedStudent, setSelectedStudent] = useState("");
   const [students, setStudents] = useState([]);
 
+  const [taskID, setTaskID] = useState(null); 
+
   const location = useLocation(); 
   const params = new URLSearchParams(location.search);
   const authToken = params.get('authToken');
@@ -15,7 +17,8 @@ function StudentsList({ setIsLoggedIn }) {
   useEffect(() => {
     async function fetchStudents() {
       const { data } = await axios.get(`${API_URL}/performance/list/students?authToken=${authToken}`);
-      setStudents(data);
+      setStudents(data.students);
+      setTaskID(data.taskID); 
     }
     fetchStudents();
   }, [selectedStudent]);
@@ -36,7 +39,7 @@ function StudentsList({ setIsLoggedIn }) {
         ))}
       </select>
       {selectedStudent? (
-       <StudentLogin student ={selectedStudent} setIsLoggedIn={loggedIn}/>
+       <StudentLogin student ={selectedStudent} taskID = {taskID} setIsLoggedIn={loggedIn}/>
       ):(<></>)}
     </div>
   );

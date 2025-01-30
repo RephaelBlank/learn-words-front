@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { Button, Grid2, Link } from '@mui/material'
 
-function StudentLogin({student ,setIsLoggedIn}) {
+function StudentLogin({student, taskID ,setIsLoggedIn}) {
     const [errorMessage, setErrorMessage] = useState('')
     let navigate = useNavigate();
 
