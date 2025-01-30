@@ -5,6 +5,7 @@ import Home from './components/home'
 import Cookies from 'js-cookie'
 import ClassesManager from './components/classes/classesManager'
 import SignUp from './components/signUp'
+import StudentsList from './components/students/studentsList'
 
 function App() {
   const [isLoggedIn, setLoggedIn ] = useState(false);
@@ -35,6 +36,7 @@ function App() {
     <Routes>
         <Route path="/" element={<SignIn setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
         <Route path="/sign-up" element={<SignUp setIsLoggedIn={setLoggedIn}  />} />
+        <Route path="/enter-students" element={<StudentsList setIsLoggedIn={setLoggedIn}  />} />
     </Routes>
 }
     </BrowserRouter>

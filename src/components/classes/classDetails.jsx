@@ -13,7 +13,7 @@ function ClassDetails({ selectedClass, onBack }) {
   const token = sessionStorage.getItem('token');
   const [taskLink, setTaskLink] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  const URL = import.meta.env.VITE_WEB_URL;
 
   useEffect(() => {
     fetchClassDetails();
@@ -90,7 +90,7 @@ function ClassDetails({ selectedClass, onBack }) {
     const getTaskLink = async (assignedID) => {
       try {
         const { data } = await axiosInstance.get(`/auth/assignedTask/${assignedID}`);
-        const generatedLink = `${API_URL}/performance/list/students?authToken=${data}`;
+        const generatedLink = `${URL}/enter-students?authToken=${data}`;
         setTaskLink(generatedLink);
       } catch (error) {
         if (error.response && error.response.status === 404) {
