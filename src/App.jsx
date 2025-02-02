@@ -6,6 +6,8 @@ import Cookies from 'js-cookie'
 import ClassesManager from './components/classes/classesManager'
 import SignUp from './components/signUp'
 import StudentsList from './components/students/studentsList'
+import TaskExecution from './components/students/taskExecutionUI'
+import StudentManager from './components/students/studentManager'
 
 function App() {
   const [isLoggedIn, setLoggedIn ] = useState(false);
@@ -31,6 +33,7 @@ function App() {
     <Routes>
     <Route path="/" element={<Home  setLoggedIn={setLoggedIn} />} />
     <Route path="/class" element={<ClassesManager  setLoggedIn={setLoggedIn} />} />
+    <Route path ="/enter-students" element = {<StudentManager setLoggedIn = {setLoggedIn}/>}/>
     </Routes>
     :
     <Routes>

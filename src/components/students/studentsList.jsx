@@ -19,6 +19,7 @@ function StudentsList({ setIsLoggedIn }) {
       const { data } = await axios.get(`${API_URL}/performance/list/students?authToken=${authToken}`);
       setStudents(data.students);
       setTaskID(data.taskID); 
+      sessionStorage.setItem('assignedTask', data.taskID);
     }
     fetchStudents();
   }, [selectedStudent]);

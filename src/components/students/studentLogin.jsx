@@ -10,7 +10,6 @@ function StudentLogin({student, taskID ,setIsLoggedIn}) {
     const API_URL = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async (event) => {
-        console.log (student);
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       const form = {
@@ -19,9 +18,10 @@ function StudentLogin({student, taskID ,setIsLoggedIn}) {
       };
       try {
         const { data } = await axios.post(`${API_URL}/auth/students-login`, form);
+        sessionStorage.setItem('token', data.access_token);   
+        sessionStorage.setItem('id', student);   
         setIsLoggedIn();
-        sessionStorage.setItem('token', data.access_token); 
-    
+        //navigate('../student'); 
       } catch (error){
         if (error.response && error.response.status === 401) {
           console.log(error.response.data.message);
