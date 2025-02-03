@@ -1,9 +1,11 @@
+import { ImmediateTaskResults } from "./viewResult";
+
 function ExecutionTasksList({ tasks}) {
     return (
       <ul>
         {tasks.map((task) => (
-          <li key={task.executionID}>
-            {task.score} 
+          <li key={task}>
+            <ImmediateTaskResults execution={task}/> 
           </li>
         ))}
       </ul>
