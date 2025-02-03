@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import axiosInstance from '../../axiosInstance';
 import "../../css/TaskMatching.css";
+import { ImmediateTaskResults } from './viewResult';
 
 const colors = ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#a0c4ff", "#bdb2ff", "#ffc6ff", "#ffb4a2", "#e5989b"];
 
@@ -15,6 +16,8 @@ const TaskExecution = ({ executionID }) => {
   const [selectedWord, setSelectedWord] = useState(null);
   const [lastSelectedDefinition, setLastSelectedDefinition] = useState(null);
   const [pairColors, setPairColors] = useState({});
+
+  const [taskResults, setTaskResult] = useState (null); 
 
 
   // Fetch task data
@@ -117,9 +120,10 @@ const TaskExecution = ({ executionID }) => {
   // Submit task answers
   const handleSubmit = async () => {
     try {
-      const response = await axiosInstance.put(`http://localhost:3000/performance/${executionID}`, answers);
-      setResults(response.data.results);
-      setScore(response.data.score);
+      const {data} = await axiosInstance.put(`http://localhost:3000/performance/${executionID}`, answers);
+      setTaskResult (data); 
+      setResults(data.results);
+      setScore(data.score);
       
     } catch (error) {
       console.error('Error submitting task:', error);
@@ -127,6 +131,10 @@ const TaskExecution = ({ executionID }) => {
   };
 
   return (
+    <>
+    {taskResults? (
+      <ImmediateTaskResults execution={taskResults}/>
+    ) : (
     <div className="task-container">
       <h1>Task Execution</h1>
 
@@ -177,21 +185,9 @@ const TaskExecution = ({ executionID }) => {
       </div>
 
       <button onClick={handleSubmit}>Submit Task</button>
-
-      {results && (
-        <div className="results">
-          <h2>Results</h2>
-          <p>Score: {score}%</p>
-          <ul>
-            {results.map((result, index) => (
-              <li key={index}>
-                Word ID: {result.wordID}, Definition ID: {result.definitionID}, Valid: {result.isValid ? 'Yes' : 'No'}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+      </div>
+       ) }
+    </>
   );
 };
 
