@@ -11,15 +11,21 @@ function StudentManager({setLoggedIn}) {
 
     const fetchTask = async(assignedTask) => {
       try {
+        let flag = true; 
         const  {data}  = await axiosInstance.get(`/performance/assignedTask/${assignedTask}`); 
-        console.log (data); 
-        if (data.executionID){
-          console.log (data.executionID); 
-          setTaskExecution (data.executionID); 
+        for (const performance of data){
+          console.log (performance);
+          if (performance.status === 'PENDING'){
+            console.log (performance.executionID); 
+            flag = false; 
+            setTaskExecution (performance.executionID);
+            break; 
+          }
         }
-        else{
+        
+        if (flag){
         setCompletedTasks (data);
-        } 
+        }
       } catch (error) {
         console.error(error); 
       }
