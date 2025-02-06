@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
+
 import { Button, Grid2, Link } from '@mui/material'
 
 
 
 function SignIn({setIsLoggedIn}) {
     const [errorMessage, setErrorMessage] = useState('')
-    let navigate = useNavigate();
+    
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -24,9 +24,10 @@ function SignIn({setIsLoggedIn}) {
         setIsLoggedIn(true)
         console.log (data);
         sessionStorage.setItem('token', data.access_token);  
-        sessionStorage.setItem('id', formData.get('id'));       
+        sessionStorage.setItem('id', formData.get('id'));
+        sessionStorage.setItem('role', "teacher");        
 
-        navigate('../class')
+        
       } catch (error){
         if (error.response && error.response.status === 401) {
           console.log(error.response.data.message);
@@ -62,11 +63,6 @@ function SignIn({setIsLoggedIn}) {
           </Button>
         </form>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <Grid2>
-                <Link href="sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid2>
       </div>
     );
   }

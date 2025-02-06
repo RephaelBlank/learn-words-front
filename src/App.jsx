@@ -8,43 +8,97 @@ import SignUp from './components/signUp'
 import StudentsList from './components/students/studentsList'
 import TaskExecution from './components/students/taskExecutionUI'
 import StudentManager from './components/students/studentManager'
+import Layout from './layout'
+import AuthTabs from './components/AuthTabs'
 
 function App() {
   const [isLoggedIn, setLoggedIn ] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState (null);
 
   useEffect(() => {
-  const token = sessionStorage.getItem('token');
-  if (token){
-    console.log(token);
-    setLoggedIn(true)
-  }
-  setLoading(false); 
-}); 
+    const token = sessionStorage.getItem('token');
+    if (token){
+      console.log(token);
+      setLoggedIn(true)
+      const storedRole = sessionStorage.getItem('role'); 
+      setRole (storedRole); 
+    }
+    setLoading(false); 
+  }); 
   if (loading) {
     return <div>Loading...</div>;
-}
+  }
 
+  if (!isLoggedIn) {
+    return (
+      <BrowserRouter> 
+       <Routes>
+        <Route path="/" 
+          element=  {<Layout
+            topContent={<div>Welcome!!</div>}
+            leftContent={null}
+            mainContent={<AuthTabs setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />}
+          />}
+        />
+        <Route path ="/enter-students" 
+          element=  {<Layout
+            topContent={<div>Welcome!!</div>}
+            leftContent={null}
+            mainContent={<StudentsList setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />}
+        />}
+      />
+       </Routes>
+      </BrowserRouter>
+      
+    );
+  }
+
+  let mainContent;
+  let leftContent;
+
+  if (role === 'teacher') {
+    mainContent = <ClassesManager setLoggedIn={setLoggedIn} />;
+    leftContent = (
+      <div style={{ padding: '16px' }}>
+       
+        <div>תפריט צד מורה:</div>
+        <ul>
+          <li>ניהול כיתות</li>
+          <li>ניהול מטלות</li>
+          <li>פרופיל אישי</li>
+        </ul>
+      </div>
+    );
+  } else if (role === 'student') {
+    mainContent = <StudentManager setLoggedIn={setLoggedIn} />;
+    leftContent = (
+      <div style={{ padding: '16px' }}>
+        <div>תפריט צד תלמיד:</div>
+        <ul>
+          <li>פרופיל אישי</li>
+          <li>רשימת מטלות</li>
+        </ul>
+      </div>
+    );
+  } else {
+    // אם התפקיד לא מוגדר – נציג ממשק ברירת מחדל
+    mainContent = <Home setLoggedIn={setLoggedIn} />;
+    leftContent = <div>תפריט צד כללי</div>;
+  }
 
   return (
-    <>
-    <BrowserRouter>{
-      isLoggedIn? 
-    <Routes>
-    <Route path="/" element={<Home  setLoggedIn={setLoggedIn} />} />
-    <Route path="/class" element={<ClassesManager  setLoggedIn={setLoggedIn} />} />
-    <Route path ="/enter-students" element = {<StudentManager setLoggedIn = {setLoggedIn}/>}/>
-    </Routes>
-    :
-    <Routes>
-        <Route path="/" element={<SignIn setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />} />
-        <Route path="/sign-up" element={<SignUp setIsLoggedIn={setLoggedIn}  />} />
-        <Route path="/enter-students" element={<StudentsList setIsLoggedIn={setLoggedIn}  />} />
-    </Routes>
+    
+      <Layout
+        topContent={<div style={{ padding: '16px' }}>Header – אפליקציה לדף אחד</div>}
+        leftContent={leftContent}
+        mainContent={mainContent}
+      />
+    
+  );
 }
-    </BrowserRouter>
-    </>
-  )
-}
+
+
+
 
 export default App

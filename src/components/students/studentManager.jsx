@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import TaskExecution from './taskExecutionUI';
 import axiosInstance from '../../axiosInstance';
 import ExecutionTasksList from './executionTasksList';
-import Layout from '../../layout';
-import { Button } from '@mui/material';
 
 function StudentManager({setLoggedIn}) {
     const [taskExecution, setTaskExecution] = useState(null); 
@@ -38,33 +36,21 @@ function StudentManager({setLoggedIn}) {
         fetchTask (assignedTask); 
     } }, []); 
 
-    const leftContent = (
-      <>
-        <h2>מטלות נוספות</h2>
-        <ExecutionTasksList tasks={completedTasks} />
-      </>
-    );
-  
-    const mainContent = (
-      <>
+    return (
+      <div>
         <h1>Welcome!</h1>
         {taskExecution ? (
-          <TaskExecution executionID={taskExecution} />
-        ) : (
           <>
-            <p>TasksExecutionList</p>
-            <ExecutionTasksList tasks={completedTasks} />
+          <TaskExecution executionID={taskExecution} />
           </>
-        )}
-      </>
-    );
-
-    const topContent = (<> This is Top
-    </>)
-  
-    return (
-      <Layout topContent={topContent} leftContent={leftContent} mainContent={mainContent}  />
-    );
+        ): (<>
+                  TasksExecutionList
+                  <ExecutionTasksList tasks={completedTasks}/>
+        </>
+      )}
+        </div>
+  );
+        
   }
   
   export default StudentManager

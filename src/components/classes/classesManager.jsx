@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+
 import ClassesList from './classesList';
 import ClassDetails from './classDetails';
 import TaskManager from '../tasks/taskManager';
@@ -10,8 +10,7 @@ import CreateClassManager from './createClassManager';
 function ClassesManager({setLoggedIn}) {
     const [classes, setClasses] = useState([]); 
     const [selectedClass, setSelectedClass] = useState(null);
-    let navigate = useNavigate();
-
+   
     const API_URL = import.meta.env.VITE_API_URL;
 
     async function fetchData() {
@@ -25,7 +24,6 @@ function ClassesManager({setLoggedIn}) {
             if (error.response && error.response.status === 401){ 
                 sessionStorage.removeItem('token'); 
                 setLoggedIn(false); 
-                navigate('../')
             }
             console.log(error)
         }            
@@ -33,7 +31,7 @@ function ClassesManager({setLoggedIn}) {
 
     useEffect( () => {
         fetchData();
-    }, [setLoggedIn, navigate]); 
+    }, [setLoggedIn]); 
 
     return (
       <div>

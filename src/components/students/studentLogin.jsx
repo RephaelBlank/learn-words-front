@@ -20,6 +20,7 @@ function StudentLogin({student, taskID ,setIsLoggedIn}) {
         const { data } = await axios.post(`${API_URL}/auth/students-login`, form);
         sessionStorage.setItem('token', data.access_token);   
         sessionStorage.setItem('id', student);   
+        sessionStorage.setItem('role', "student");
         setIsLoggedIn();
         //navigate('../student'); 
       } catch (error){
