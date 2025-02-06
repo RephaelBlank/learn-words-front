@@ -11,6 +11,8 @@ const SideBar = ({ content, width = 240, position = 'left' }) => {
     <Box
       sx={{
         width,
+        minWidth: width, // להבטיח שהרוחב לא יהיה פחות מהערך הזה
+        flexShrink: 0, // מונע כיווץ
         backgroundColor: 'grey.200',
         display: 'flex',
         alignItems: 'center',

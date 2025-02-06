@@ -6,7 +6,7 @@ import MainContent from './components/materialUI/MainContent';
 
 const Layout = ({ topContent, leftContent, mainContent }) => {
   const topBarHeight = 64;
-  const sideBarWidth = 240;
+  const sideBarWidth = 200;
 
   return (
     <Box
