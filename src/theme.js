@@ -4,14 +4,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // כחול מותאם
+      main: '#77B5FE', 
     },
     secondary: {
-      main: '#dc004e', // אדום מותאם
+      main: '#FF6F61', 
     },
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif', // גופן גלובלי
+    fontFamily: 'Roboto, Arial, sans-serif', 
     h1: {
       fontSize: '2rem',
       fontWeight: 700,
@@ -25,8 +25,8 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none', // ביטול אותיות גדולות
-          borderRadius: 8, // כפתורים עגולים
+          textTransform: 'none', 
+          borderRadius: 8, 
         },
       },
     },

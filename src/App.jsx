@@ -10,6 +10,7 @@ import TaskExecution from './components/students/taskExecutionUI'
 import StudentManager from './components/students/studentManager'
 import Layout from './layout'
 import AuthViews from './components/AuthView'
+import LogOut from './components/LogOut'
 
 function App() {
   const [isLoggedIn, setLoggedIn ] = useState(false);
@@ -29,6 +30,8 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const topContent = <LogOut setIsLoggedIn = {setLoggedIn}/>; 
 
   if (!isLoggedIn) {
     return (
@@ -90,7 +93,7 @@ function App() {
   return (
     
       <Layout
-        topContent={<div style={{ padding: '16px' }}>Header – אפליקציה לדף אחד</div>}
+        topContent={topContent}
         leftContent={leftContent}
         mainContent={mainContent}
       />
