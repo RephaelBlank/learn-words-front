@@ -3,12 +3,8 @@ import { Tabs, Tab, Box, Typography, Button, Link } from '@mui/material';
 import SignIn from './SignIn';
 import SignUp from './signUp';
 
-const AuthTabs = ({setIsLoggedIn}) => {
+const AuthViews = ({setIsLoggedIn}) => {
   const [view, setView] = useState("signIn");
-
-  const handleChange = (event, newValue) => {
-    setTab(newValue);
-  };
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
@@ -48,4 +44,4 @@ const AuthTabs = ({setIsLoggedIn}) => {
   );
 };
 
-export default AuthTabs;
+export default AuthViews;

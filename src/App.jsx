@@ -9,7 +9,7 @@ import StudentsList from './components/students/studentsList'
 import TaskExecution from './components/students/taskExecutionUI'
 import StudentManager from './components/students/studentManager'
 import Layout from './layout'
-import AuthTabs from './components/AuthTabs'
+import AuthViews from './components/AuthView'
 
 function App() {
   const [isLoggedIn, setLoggedIn ] = useState(false);
@@ -38,7 +38,7 @@ function App() {
           element=  {<Layout
             topContent={<div>Welcome!!</div>}
             leftContent={null}
-            mainContent={<AuthTabs setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />}
+            mainContent={<AuthViews setIsLoggedIn={setLoggedIn} isLoggedIn={isLoggedIn} />}
           />}
         />
         <Route path ="/enter-students" 
