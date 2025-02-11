@@ -41,12 +41,16 @@ function StudentManager({setLoggedIn}) {
     const handleMenuSelect = (view) => {
       setView(view); 
       setTaskExecution (null); 
+      if (view=== 'taskExecution' ){
+        fetchTask(assignedTask);
+      }
       console.log (view);
     };
 
     const studentMenuItems = [
       { label: 'Profile', onClick: () => handleMenuSelect('profile') },
       { label: 'Tasks list', onClick: () => handleMenuSelect('tasksList') },
+      { label: 'Complete Task', onClick: () => handleMenuSelect('taskExecution') }
     ];
 
     const topContent = <LogOut setIsLoggedIn = {setLoggedIn}/>;
@@ -63,10 +67,7 @@ function StudentManager({setLoggedIn}) {
   }
     const leftContent = studentMenuItems;
 
-    switch (view){
-      case 'tasksList': 
-        mainContent =  <ExecutionTasksList tasks={completedTasks}/>
-    }
+    
 
     return  (
     
