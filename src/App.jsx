@@ -17,6 +17,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState (null);
 
+  const [activeView, setActiveView] = useState('default');
+
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token){
@@ -61,29 +63,9 @@ function App() {
   let leftContent;
 
   if (role === 'teacher') {
-    mainContent = <ClassesManager setLoggedIn={setLoggedIn} />;
-    leftContent = (
-      <div style={{ padding: '16px' }}>
-       
-        <div>תפריט צד מורה:</div>
-        <ul>
-          <li>ניהול כיתות</li>
-          <li>ניהול מטלות</li>
-          <li>פרופיל אישי</li>
-        </ul>
-      </div>
-    );
+    return( <ClassesManager setLoggedIn={setLoggedIn}/>);
   } else if (role === 'student') {
-    mainContent = <StudentManager setLoggedIn={setLoggedIn} />;
-    leftContent = (
-      <div style={{ padding: '16px' }}>
-        <div>תפריט צד תלמיד:</div>
-        <ul>
-          <li>פרופיל אישי</li>
-          <li>רשימת מטלות</li>
-        </ul>
-      </div>
-    );
+    return(<StudentManager setLoggedIn={setLoggedIn}/>)
   } else {
     // אם התפקיד לא מוגדר – נציג ממשק ברירת מחדל
     mainContent = <Home setLoggedIn={setLoggedIn} />;

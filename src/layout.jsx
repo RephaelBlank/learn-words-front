@@ -30,7 +30,7 @@ const Layout = ({ topContent, leftContent, mainContent }) => {
           p: 0,
         }}
       >
-        <SideBar content={leftContent} width={sideBarWidth} position="left" />
+        <SideBar menuItems={leftContent} width={sideBarWidth} position="left" />
 
         <MainContent content={mainContent} />
 

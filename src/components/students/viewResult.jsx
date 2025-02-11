@@ -21,19 +21,28 @@ export const PrevTaskResults = ({executionID}) => {
     },[executionID]);
 
     if (!results) return <p>Loading...</p>;
+   
     return <TaskResultsView execution={execution}/>
+    
 }
 
 const TaskResultsView = ({execution}) => {
     const results = execution.results; 
     const score = execution.score; 
 
+    if (execution.status !== 'COMPLETED'){
+      return ( <>
+      Task pending to execuate</>)
+      }
+      else {
+       
+
     return (
         <div className="results">
         <h2>Results</h2>
         <p>Score: {score}%</p>
         <ul>
-          {results.map((result, index) => (
+          {results && results.map((result, index) => (
             <li key={index}>
               Word ID: {result.wordID}, Definition ID: {result.definitionID}, Valid: {result.isValid ? 'Yes' : 'No'}
             </li>
@@ -41,6 +50,7 @@ const TaskResultsView = ({execution}) => {
         </ul>
       </div>
     )
+  }
 }
 
 export default TaskResultsView;

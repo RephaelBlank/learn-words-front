@@ -6,12 +6,13 @@ import ClassDetails from './classDetails';
 import TaskManager from '../tasks/taskManager';
 import axiosInstance from '../../axiosInstance';
 import CreateClassManager from './createClassManager';
+import LogOut from '../LogOut';
+import Layout from '../../layout';
 
-function ClassesManager({setLoggedIn}) {
+function ClassesManager({setLoggedIn, resetSelectedClass}) {
     const [classes, setClasses] = useState([]); 
     const [selectedClass, setSelectedClass] = useState(null);
-   
-    const API_URL = import.meta.env.VITE_API_URL;
+    const [view, setView] = useState ('deafult'); 
 
     async function fetchData() {
         try {
@@ -33,20 +34,46 @@ function ClassesManager({setLoggedIn}) {
         fetchData();
     }, [setLoggedIn]); 
 
-    return (
-      <div>
-        <h1>Welcome!</h1>
-        {!selectedClass ? (
-          <>
-          <TaskManager  />
-          <CreateClassManager onClassCreated={fetchData}/>
-          <ClassesList classes={classes} onSelectClass={setSelectedClass} />
-          </>
-        ): (
-          <ClassDetails selectedClass={selectedClass} onBack={() => setSelectedClass(null)} />
-      )}
-        </div>
-  );
+    const handleMenuSelect = (view) => {
+      setView(view);
+      setSelectedClass(null); 
+      console.log (view);
+    };
+
+    const teacherMenuItems = [
+      { label: 'Classes', onClick: () => handleMenuSelect('classes') },
+      { label: 'Create Task', onClick: () => handleMenuSelect('tasks') },
+    ];
+
+    const topContent = <LogOut setIsLoggedIn = {setLoggedIn}/>;
+    let mainContent; 
+
+    if (selectedClass){
+    mainContent = (
+      <ClassDetails selectedClass={selectedClass} onBack={() => setSelectedClass(null)} />
+  );}
+  else {
+    mainContent = (
+      <>
+      <CreateClassManager onClassCreated={fetchData}/>
+      <ClassesList classes={classes} onSelectClass={setSelectedClass} />
+      </>
+    ); 
+  }
+    const leftContent = teacherMenuItems;
+
+    if (view === 'tasks')
+      mainContent = (<TaskManager  />); 
+
+  return (
+    
+    <Layout
+      topContent={topContent}
+      leftContent={leftContent}
+      mainContent={mainContent}
+    />
+  
+);
         
   }
   
