@@ -134,7 +134,7 @@ const TaskExecution = ({ executionID }) => {
     <>
     {taskResults? (
       <ImmediateTaskResults execution={taskResults}/>
-    ) : (
+    ) : definitions.length>0? (
     <div className="task-container">
       <h1>Task Execution</h1>
 
@@ -186,7 +186,7 @@ const TaskExecution = ({ executionID }) => {
 
       <button onClick={handleSubmit}>Submit Task</button>
       </div>
-       ) }
+       ) : (<> Loading Task...</>) }
     </>
   );
 };
