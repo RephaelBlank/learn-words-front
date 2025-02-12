@@ -32,7 +32,7 @@ const Layout = ({ topContent, leftContent, mainContent }) => {
       >
         <SideBar menuItems={leftContent} width={sideBarWidth} position="left" />
 
-        <MainContent content={mainContent} />
+        <MainContent>{mainContent}</MainContent>  
 
       </Box>
     </Box>

@@ -49,8 +49,8 @@ function ClassesManager({setLoggedIn, resetSelectedClass}) {
     let mainContent; 
 
     if (selectedClass){
-    mainContent = (
-      <ClassDetails selectedClass={selectedClass} onBack={() => setSelectedClass(null)} />
+    mainContent = (<>
+      <ClassDetails selectedClass={selectedClass} onBack={() => setSelectedClass(null)} /></>
   );}
   else {
     mainContent = (
