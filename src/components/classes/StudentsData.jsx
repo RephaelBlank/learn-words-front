@@ -28,6 +28,7 @@ function StudentsData({ selectedClass,students, onBack }) {
       {selectedStudent? (<>
       {selectedStudent.studentName} 
       {studentTasks.length>0? ( <ExecutionTasksList tasks={studentTasks} />):(<></>)}
+      <button onClick={() => setSelectedStudent(null)} >Return to students list</button>
       
       </>):
       (<><h3>Students:</h3>
