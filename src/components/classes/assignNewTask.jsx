@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import axiosInstance from '../../axiosInstance';
 
-function AssignNewTask({ selectedClass, onBack }) {
+function AssignNewTask({ selectedClass, onAddAssignment }) {
  
   const [allTasks, setAllTasks] = useState([]); 
   const [selectedTaskID, setSelectedTaskID] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null); 
-
-  useEffect(() => {
-    fetchTasks();
-
-}, []);
 
     const fetchTasks = async() => {
       try {
@@ -39,7 +33,7 @@ function AssignNewTask({ selectedClass, onBack }) {
         setSelectedTaskID(null); 
         setSelectedTask(null); 
         setAllTasks([]); 
-        fetchClassDetails();
+        onAddAssignment(); 
     };
 
     const handleTaskSelection = async (task) => {

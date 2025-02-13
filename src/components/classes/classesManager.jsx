@@ -54,6 +54,10 @@ function ClassesManager({setLoggedIn, resetSelectedClass}) {
       fetchClassDetails();
     }, [selectedClass])
 
+    const addAssignment = () => {
+      fetchClassDetails(); 
+    };
+
     const handleMenuSelect = (view) => {
       setView(view);
       setSelectedClass(null); 
@@ -76,7 +80,7 @@ function ClassesManager({setLoggedIn, resetSelectedClass}) {
       onBack={() => setSelectedClass(null)}
     />
     <TasksData assignments={assignments} />
-    <AssignNewTask selectedClass={selectedClass} />
+    <AssignNewTask selectedClass={selectedClass} onAddAssignment={addAssignment}/>
       </>);}
   else {
     mainContent = (
