@@ -29,14 +29,13 @@ const MainContent = ({ children }) => {
             borderRadius: '16px',
             padding: 2,
             minWidth: '200px',
-            maxWidth: '500px', // מגביל את הגודל של כל פריט
+           // maxWidth: '500px', // מגביל את הגודל של כל פריט
           textAlign: 'center',
           flexGrow: 1, // מאפשר התרחבות גמישה אבל לא מעבר ל-maxWidth
           flexBasis: '250px', // מגדיר בסיס לכל פריט כדי לשמור על סדר
-          overflow: 'hidden', // חותך טקסט שחורג
-    whiteSpace: 'nowrap', // מונע ירידת שורה
-    textOverflow: 'ellipsis', // מציג "..."
-    wordBreak: 'break-word', // שובר מילים ארוכות מדי
+          whiteSpace: 'normal', // מאפשר ירידת שורה
+          overflow: 'visible', // מאפשר לתוכן להתרחב
+          wordBreak: 'break-word', // שובר מילים ארוכות מדי
           }}
         >
           {item}

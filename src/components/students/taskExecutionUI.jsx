@@ -37,7 +37,8 @@ const TaskExecution = ({ executionID }) => {
 
   useEffect(() => {
     if (words.length > 0) {
-      const initialAnswers = words.map(word => ({ wordID: word.id, definitionID: null }));
+      const initialAnswers = words.map(word => ({ wordID: word.id, word: word.content,
+         definitionID: null,definition: null }));
       setAnswers(initialAnswers);
     }
   }, [words]);
@@ -49,7 +50,7 @@ const TaskExecution = ({ executionID }) => {
     if (answer && answer.definitionID !== null) {
       setAnswers(prevAnswers =>
         prevAnswers.map(ans =>
-          ans.wordID === word.id ? { ...ans, definitionID: null } : ans
+          ans.wordID === word.id ? { ...ans, definitionID: null, definition: null } : ans
         )
       );
       setPairColors(prev => {
@@ -77,7 +78,7 @@ const TaskExecution = ({ executionID }) => {
     if (!definitionAssigned)  {
       setAnswers(prevAnswers =>
         prevAnswers.map(ans =>
-          ans.wordID === selectedWord.id ? { ...ans, definitionID: definition.id } : ans
+          ans.wordID === selectedWord.id ? { ...ans, definitionID: definition.id ,definition: definition.content} : ans
         )
       );
       setLastSelectedDefinition(definition.id);
@@ -136,8 +137,7 @@ const TaskExecution = ({ executionID }) => {
       <ImmediateTaskResults execution={taskResults}/>
     ) : definitions.length>0? (
     <div className="task-container">
-      <h1>Task Execution</h1>
-
+    
       <div className="task-container">
         <div className="words-column">
           <h2>Words</h2>

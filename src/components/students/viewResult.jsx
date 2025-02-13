@@ -44,7 +44,7 @@ const TaskResultsView = ({execution}) => {
         <ul>
           {results && results.map((result, index) => (
             <li key={index}>
-              Word ID: {result.wordID}, Definition ID: {result.definitionID}, Valid: {result.isValid ? 'Yes' : 'No'}
+              Word: {result.word}, Definition: {result.definition}, Valid: {result.isValid ? 'Yes' : 'No'}
             </li>
           ))}
         </ul>
