@@ -3,7 +3,6 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 const MainContent = ({ children }) => {
-    console.log(React.Children.toArray(children)); 
     let items = React.Children.toArray(children)
     .flatMap(child => child.props?.children ?? child);
   

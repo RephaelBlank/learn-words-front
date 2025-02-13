@@ -8,11 +8,17 @@ import axiosInstance from '../../axiosInstance';
 import CreateClassManager from './createClassManager';
 import LogOut from '../LogOut';
 import Layout from '../../layout';
+import StudentsData from './StudentsData';
+import TasksData from './TasksData';
+import AssignNewTask from './assignNewTask';
 
 function ClassesManager({setLoggedIn, resetSelectedClass}) {
     const [classes, setClasses] = useState([]); 
     const [selectedClass, setSelectedClass] = useState(null);
     const [view, setView] = useState ('deafult'); 
+
+    const [students, setStudents] = useState([]);
+    const [assignments, setAssignments] = useState([]);
 
     async function fetchData() {
         try {
@@ -30,9 +36,24 @@ function ClassesManager({setLoggedIn, resetSelectedClass}) {
         }            
     }
 
+    async function fetchClassDetails() {
+      if (selectedClass){
+      try {
+        const { data } = await axiosInstance.get(`/classes/${selectedClass.classID}`);
+        setStudents(data.students);
+        setAssignments(data.assignedTasks);
+      } catch (error) {
+        console.error(error);
+      }}
+      }  
+
     useEffect( () => {
         fetchData();
-    }, [setLoggedIn]); 
+    }, [setLoggedIn]);
+    
+    useEffect( () => {
+      fetchClassDetails();
+    }, [selectedClass])
 
     const handleMenuSelect = (view) => {
       setView(view);
@@ -49,9 +70,15 @@ function ClassesManager({setLoggedIn, resetSelectedClass}) {
     let mainContent; 
 
     if (selectedClass){
-    mainContent = (<>
-      <ClassDetails selectedClass={selectedClass} onBack={() => setSelectedClass(null)} /></>
-  );}
+      mainContent = (<>
+       <StudentsData 
+      selectedClass={selectedClass} 
+      students={students} 
+      onBack={() => setSelectedClass(null)}
+    />
+    <TasksData assignments={assignments} />
+    <AssignNewTask selectedClass={selectedClass} />
+      </>);}
   else {
     mainContent = (
       <>
