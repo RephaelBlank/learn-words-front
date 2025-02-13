@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import ClassesList from './classesList';
-import ClassDetails from './classDetails';
 import TaskManager from '../tasks/taskManager';
 import axiosInstance from '../../axiosInstance';
 import CreateClassManager from './createClassManager';
