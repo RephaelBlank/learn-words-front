@@ -10,8 +10,8 @@ const TaskExecution = ({ executionID }) => {
   const [words, setWords] = useState([]);
   const [definitions, setDefinitions] = useState([]);
   const [answers, setAnswers] = useState([]);
-  const [results, setResults] = useState(null);
-  const [score, setScore] = useState(null);
+  
+  const [error, setError] = useState(null);
 
   const [selectedWord, setSelectedWord] = useState(null);
   const [lastSelectedDefinition, setLastSelectedDefinition] = useState(null);
@@ -30,6 +30,7 @@ const TaskExecution = ({ executionID }) => {
         setDefinitions(response.data.definitions);
       } catch (error) {
         console.error('Error fetching task:', error);
+        setError("Failed to load task execution. Please try again later.");
       }
     };
     fetchTask();
@@ -130,6 +131,10 @@ const TaskExecution = ({ executionID }) => {
       console.error('Error submitting task:', error);
     }
   };
+
+  if (error) {
+    return <div style={{ color: 'red' }}>{error}</div>;
+  }
 
   return (
     <>
