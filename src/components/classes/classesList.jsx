@@ -1,4 +1,8 @@
 function ClassesList({ classes, onSelectClass }) {
+
+  if (classes.length === 0){
+    return <>No classes exist yet.</>
+  }
     return (
       <ul>
         {classes.map((cls) => (
