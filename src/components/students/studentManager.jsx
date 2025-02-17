@@ -53,7 +53,8 @@ function StudentManager({setLoggedIn}) {
       { label: 'Complete Task', onClick: () => handleMenuSelect('taskExecution') }
     ];
 
-    const topContent = <LogOut setIsLoggedIn = {setLoggedIn}/>;
+    const name = sessionStorage.getItem('name'); 
+    const topContent =(<> <LogOut setIsLoggedIn = {setLoggedIn}/> Hello {name}! </>); 
     let mainContent; 
 
     if (taskExecution){

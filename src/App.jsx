@@ -33,8 +33,6 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  const topContent = <LogOut setIsLoggedIn = {setLoggedIn}/>; 
-
   if (!isLoggedIn) {
     return (
       <BrowserRouter> 
@@ -59,6 +57,9 @@ function App() {
     );
   }
 
+  const name = sessionStorage.getItem('name'); 
+  const topContent =(<> <LogOut setIsLoggedIn = {setLoggedIn}/> Hello {name}! </>); 
+console.log (name);
   let mainContent;
   let leftContent;
 

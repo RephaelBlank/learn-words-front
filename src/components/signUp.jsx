@@ -26,7 +26,7 @@ function SignUp({setIsLoggedIn}) {
         sessionStorage.setItem('token', data.access_token); 
         sessionStorage.setItem('id', data.teacherID); 
         sessionStorage.setItem('role', "teacher");       
-
+        sessionStorage.setItem('name',data.name); 
         
       } catch (error){
         if (error.response && error.response.status === 401) {

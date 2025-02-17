@@ -69,7 +69,8 @@ function ClassesManager({setLoggedIn, resetSelectedClass}) {
       { label: 'Create Task', onClick: () => handleMenuSelect('tasks') },
     ];
 
-    const topContent = <LogOut setIsLoggedIn = {setLoggedIn}/>;
+    const name = sessionStorage.getItem('name'); 
+    const topContent =(<> <LogOut setIsLoggedIn = {setLoggedIn}/> Hello {name}! </>); 
     let mainContent; 
 
     if (selectedClass){

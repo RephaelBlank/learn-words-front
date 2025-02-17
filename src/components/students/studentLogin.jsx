@@ -21,6 +21,7 @@ function StudentLogin({student, taskID ,setIsLoggedIn}) {
         sessionStorage.setItem('token', data.access_token);   
         sessionStorage.setItem('id', student);   
         sessionStorage.setItem('role', "student");
+        sessionStorage.setItem('name',data.name); 
         setIsLoggedIn();
         //navigate('../student'); 
       } catch (error){
