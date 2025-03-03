@@ -25,15 +25,28 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none', 
-          borderRadius: 8, 
-          backgroundColor: '#77B5FE',
+          textTransform: 'none',
+          borderRadius: 8,
           color: '#fff',
           '&:hover': {
-            backgroundColor: '#5a9de6',
+            opacity: 0.9, // אפקט ריחוף עדין
           },
         },
       },
+      variants: [
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: ({ theme }) => ({
+            backgroundColor: theme.palette.primary.main,
+          }),
+        },
+        {
+          props: { variant: 'contained', color: 'secondary' },
+          style: ({ theme }) => ({
+            backgroundColor: theme.palette.secondary.main,
+          }),
+        },
+      ],
     },
     MuiList: {
       styleOverrides: {

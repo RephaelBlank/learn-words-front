@@ -32,7 +32,7 @@ const SideBar = ({header, menuItems =[], width = 240, position = 'left' }) => {
         <Button
           key={index}
           fullWidth
-          variant="text"
+          variant="contained" color='primary'
           onClick={item.onClick}
           sx={{ justifyContent: 'center', mb: 3 }} // מונע מרכזת הטקסט ומניח רווח בין הכפתורים
         >

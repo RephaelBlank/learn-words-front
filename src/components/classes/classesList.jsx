@@ -11,8 +11,9 @@ function ClassesList({ classes, onSelectClass }) {
         <ListItem key={cls.classID} divider>
           <Button 
             onClick={() => onSelectClass(cls)} 
-            variant="contained" 
-            color="primary"
+            
+            color="secondary"
+             variant="contained"
             fullWidth
           >
             <ListItemText primary={cls.className} />

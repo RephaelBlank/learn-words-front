@@ -11,7 +11,7 @@ function LogOut({setIsLoggedIn}) {
     }
 
     return (
-        <Button variant="outlined" color='secondary' onClick={() => handleLogout()}>
+        <Button variant="contained" color='secondary' onClick={() => handleLogout()}>
         Log-Out
       </Button>
     );
