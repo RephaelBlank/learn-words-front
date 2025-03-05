@@ -15,7 +15,7 @@ function SignIn({setIsLoggedIn}) {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       const form = {
-        teacherID: formData.get('id'),
+        teacherEmail: formData.get('email'),
         password: formData.get('password')
       };
       
@@ -44,8 +44,9 @@ function SignIn({setIsLoggedIn}) {
         <h2>Sign In</h2>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <input
-            name="id"
-            placeholder="id"
+            type='email'
+            name="email"
+            placeholder="email"
             required
             style={{ padding: '10px', fontSize: '16px' }}
           />

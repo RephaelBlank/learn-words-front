@@ -16,6 +16,7 @@ function SignUp({setIsLoggedIn}) {
       const formData = new FormData(event.currentTarget);
       const form = {
         teacherName: formData.get('name'),
+        email: formData.get('email'),
         password: formData.get('password')
       };
       
@@ -29,7 +30,7 @@ function SignUp({setIsLoggedIn}) {
         sessionStorage.setItem('name',data.name); 
         
       } catch (error){
-        if (error.response && error.response.status === 401) {
+        if (error.response ) {
           console.log(error.response.data.message);
           setErrorMessage(error.response.data.message); 
         } else {
@@ -49,6 +50,13 @@ function SignUp({setIsLoggedIn}) {
             required
             style={{ padding: '10px', fontSize: '16px' }}
           />
+          <input
+            type='email' 
+            name = "email" 
+            placeholder='email'
+            required
+            style={{ padding: '10px', fontSize: '16px' }}
+            />
           <input
             type="password"
             name="password"
