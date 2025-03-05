@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../axiosInstance';
+import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 function AssignNewTask({ selectedClass, onAddAssignment }) {
  
@@ -47,53 +48,64 @@ function AssignNewTask({ selectedClass, onAddAssignment }) {
         }
     };
 
-    
-  return (
-    <div>
-
-      {allTasks.length!==0? (
-        <>
-        <h3>Assign Task:</h3>
-
-        <ul>
-        {allTasks.map((task) => (
-          <li key={task.taskID} onClick={() => handleTaskSelection(task)}>
-            {task.taskName}
-          </li>
-        ))}
-      </ul>
-      {selectedTask ? (
-          Array.isArray(selectedTask.words) ? (
-            <>
-            <ul>
-              {selectedTask.words.map((word) => (
-                <li key={word.wordID}>{word.wordName}</li>
+    return (
+      <div>
+        {allTasks.length !== 0 ? (
+          <>
+            <Typography variant="h6">Assign Task:</Typography>
+  
+          
+            <List>
+              {allTasks.map((task) => (
+                <ListItem 
+                  key={task.taskID} 
+                  onClick={() => handleTaskSelection(task)}
+                  button 
+                >
+                  <ListItemText primary={task.taskName} />
+                </ListItem>
               ))}
-            </ul>
-             <button onClick={assignTask}>Assign Task</button>
-             </>
-          ) : (
-            <p>Task details loaded, but not a list</p>
-          )
+            </List>
+  
+         
+            {selectedTask ? (
+              Array.isArray(selectedTask.words) ? (
+                <><Typography variant="body1">Words:</Typography>
+                  <List>
+                    {selectedTask.words.map((word) => (
+                      <ListItem key={word.wordID}>
+                        <ListItemText primary={word.wordName} />
+                      </ListItem>
+                    ))}
+                  </List>
+                  <Button 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={assignTask}
+                    sx={{ mt: 2 }}
+                  >
+                    Assign Task
+                  </Button>
+                </>
+              ) : (
+                <Typography variant="body1">Task details loaded, but not a list</Typography>
+              )
+            ) : (
+              <Typography variant="body2">Select a task to see details</Typography>
+            )}
+          </>
         ) : (
-          <p>Select a task to see details</p>
+          <Button
+            variant="contained" 
+            color="secondary" 
+            onClick={fetchTasks}
+          >
+            Assign New Task
+          </Button>
         )}
-       
-        </>
-      ): (
-        <button onClick={fetchTasks}>Assign New Task</button>
-      )
+      </div>
+    );
+  }
 
-
-      }
-
-      
-
-     
-
-    
-    </div>
-  );
-}
 
 export default AssignNewTask;
