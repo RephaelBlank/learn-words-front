@@ -15,6 +15,7 @@ function NewTask({ onClose }) {
       alert('Word is already in the task!');
       return;
     }
+    console.log(word);
     setSelectedWords([...selectedWords, word]);
   };
 
@@ -38,7 +39,10 @@ function NewTask({ onClose }) {
     try {
         const response = await axiosInstance.post(`/tasks`, {
           taskName,
-          wordIds: selectedWords.map((word) => word.wordID),
+          taskWords: selectedWords.map((word) => ({
+            wordID: word.wordID, 
+            definitionID: word.definitionID
+          }))
         });
         console.log('Task created successfully:', response.data);
         onClose(); 

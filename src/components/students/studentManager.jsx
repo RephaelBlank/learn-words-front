@@ -36,7 +36,7 @@ function StudentManager({setLoggedIn}) {
     useEffect(() => {
     if (assignedTask){
         fetchTask (assignedTask); 
-    } }, []); 
+    } }, [view]); 
 
     const handleMenuSelect = (view) => {
       setView(view); 
@@ -57,7 +57,7 @@ function StudentManager({setLoggedIn}) {
     const topContent =(<> <LogOut setIsLoggedIn = {setLoggedIn}/> Hello {name}! </>); 
     let mainContent; 
 
-    if (taskExecution){
+    if (taskExecution && view != 'tasksList'){
     mainContent = (
       <TaskExecution executionID={taskExecution} />
   );}

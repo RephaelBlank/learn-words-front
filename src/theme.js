@@ -44,7 +44,7 @@ const theme = createTheme({
           props: { variant: 'contained', color: 'secondary' },
           style: ({ theme }) => ({
             backgroundColor: theme.palette.secondary.main,
-          }),
+          }), 
         },
       ],
     },

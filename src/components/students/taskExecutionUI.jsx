@@ -124,8 +124,6 @@ const TaskExecution = ({ executionID }) => {
     try {
       const {data} = await axiosInstance.put(`http://localhost:3000/performance/${executionID}`, answers);
       setTaskResult (data); 
-      setResults(data.results);
-      setScore(data.score);
       
     } catch (error) {
       console.error('Error submitting task:', error);
