@@ -4,7 +4,7 @@ import axios from 'axios';
 import axiosInstance from '../../axiosInstance';
 
 
-function NewTask({ onClose }) {
+function NewTask({ onClose, onTaskCreated }) { // Added onTaskCreated prop
   const [selectedWords, setSelectedWords] = useState([]);
   const [taskName, setTaskName] = useState ('');
   
@@ -45,6 +45,7 @@ function NewTask({ onClose }) {
           }))
         });
         console.log('Task created successfully:', response.data);
+        onTaskCreated(`Task ${taskName} created successfully!`); // Notify parent component
         onClose(); 
       } catch (error) {
         console.error('Error creating task:', error);
