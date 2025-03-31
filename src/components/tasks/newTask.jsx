@@ -62,14 +62,33 @@ function NewTask({ onClose }) {
       />
       <WordInput addWordToTask={addWordToTask} />
       <h3>Selected Words:</h3>
-      <ul>
-        {selectedWords.map((word) => (
-          <li key={word.wordID}>
-            {word.wordName}
-            <button onClick={() => removeWordFromTask(word.wordID)}>Remove</button>
-          </li>
-        ))}
-      </ul>
+      <ul style={{ 
+  display: "flex", 
+  flexWrap: "wrap", 
+  gap: "10px", 
+  listStyleType: "none", 
+  padding: 0 
+}}>
+  {selectedWords.map((word) => (
+    <li key={word.wordID} style={{ display: "flex", alignItems: "center" }}>
+      <span>{word.wordName}</span>
+      <button
+        style={{
+          background: "none",
+          border: "none",
+          color: "gray",
+          fontSize: "12px",
+          cursor: "pointer",
+          marginLeft: "5px",
+        }}
+        onClick={() => removeWordFromTask(word.wordID)}
+      >
+        ✖
+      </button>
+    </li>
+  ))}
+</ul>
+
       <button onClick={createTask}>Create Task</button>
       <button onClick={onClose}>Cancel</button>
     </div>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../axiosInstance";
 
+import '../../css/List.css';
+
 function DefinitionInput ({word, addDefinition}){ 
     const [suggestions, setSuggestions] = useState([]);
     const [definitionID, setDefinitionID] = useState (null); 
