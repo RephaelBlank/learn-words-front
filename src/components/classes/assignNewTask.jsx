@@ -5,6 +5,7 @@ function AssignNewTask({ selectedClass, onAddAssignment }) {
   const [allTasks, setAllTasks] = useState([]);
   const [selectedTaskID, setSelectedTaskID] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedWordID, setSelectedWordID] = useState(null);
 
   const fetchTasks = async () => {
     try {
@@ -31,6 +32,7 @@ function AssignNewTask({ selectedClass, onAddAssignment }) {
     setSelectedTaskID(null);
     setSelectedTask(null);
     setAllTasks([]);
+    setSelectedWordID(null);
     onAddAssignment();
   };
 
@@ -43,6 +45,10 @@ function AssignNewTask({ selectedClass, onAddAssignment }) {
     } catch (error) {
       console.error('Error:', error);
     }
+  };
+
+  const handleWordClick = (word) => {
+    setSelectedWordID((prevID) => (prevID === word.wordID ? null : word.wordID));
   };
 
   return (
@@ -63,7 +69,19 @@ function AssignNewTask({ selectedClass, onAddAssignment }) {
                 <h4>Words:</h4>
                 <ul>
                   {selectedTask.words.map((word) => (
-                    <li className="clickable-item" key={word.wordID}>{word.wordName}</li>
+                    <li
+                      className="clickable-item"
+                      key={word.wordID}
+                      onClick={() => handleWordClick(word)}
+                      style={{ cursor: 'pointer', marginBottom: selectedWordID === word.wordID ? '10px' : '0' }}
+                    >
+                      {word.wordName}
+                      {selectedWordID === word.wordID && (
+                        <div style={{ fontSize: '0.9em', color: 'green', marginTop: '5px' }}>
+                          {word.definition}
+                        </div>
+                      )}
+                    </li>
                   ))}
                 </ul>
                 <button onClick={assignTask}>Assign Task</button>
