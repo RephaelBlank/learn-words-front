@@ -40,7 +40,7 @@ function DefinitionInput ({word, addDefinition}){
             setDefinitionID (definition.definitionID); 
         }
         else {
-            id = await createDefinition (definition); 
+            id = await createDefinition (definition.definition); 
             setDefinitionID (id); 
         }
         console.log (id); 
