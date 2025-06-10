@@ -10,9 +10,8 @@ function TasksData({ assignments }) {
 
     const sendTask = async () => {
       try {
-        const taskID = taskToSend.assignedID;
-        console.log(taskToSend);  
-        console.log (taskID); 
+        const taskID = taskToSend;
+         
         const response = await axiosInstance.post(`/teachers/send`, {taskID,
           resourceType: "assignedTask",
           
@@ -41,18 +40,31 @@ function TasksData({ assignments }) {
     const closeLink = () => {
       setTaskLink(null); 
     };
- 
+
+    const handleTaskClick = (assignedID) => {
+      setTaskToSend((prevID) => (prevID === assignedID ? null : assignedID));
+    }
 
   return (
     <div>
       <h3>Assignments:</h3>
       <ul>
         {assignments.map((assignment) => (
-          <li key={assignment.assignedID} onClick={() => setTaskToSend(assignment)}>
+          <li 
+          className="clickable-item"
+          key={assignment.assignedID} 
+          onClick={() => handleTaskClick(assignment.assignedID)}
+          style={{ cursor: 'pointer', marginBottom:  taskToSend === assignment.assignedID ? '10px' : '6px' }}>
             {assignment.tasks.taskName}
-            <button onClick={() => getTaskLink(assignment.assignedID)}>
-            Get Task Link
-            </button>
+            {taskToSend === assignment.assignedID && (<>
+                <button onClick={() => getTaskLink(assignment.assignedID)}>
+                Get Task Link
+                </button>
+                
+                <button onClick={sendTask}>Send Task</button>
+                </>
+            )}
+            
             </li>
         ))}
       </ul>
@@ -64,11 +76,7 @@ function TasksData({ assignments }) {
         </div>
       )}
 
-      {taskToSend? (
-        <>
-        <button onClick={sendTask}>Send Task</button>
-        </>
-      ):(<></>)}
+     
     </div>
   );
 }
