@@ -6,6 +6,7 @@ import '../../css/List.css';
 function DefinitionInput ({word, addDefinition}){ 
     const [suggestions, setSuggestions] = useState([]);
     const [definitionID, setDefinitionID] = useState (null); 
+    const [aiDefinition, setAiDefinition] = useState (null);
 
     useEffect ( ()=> {
         fetchSuggestions(); 
@@ -19,6 +20,20 @@ function DefinitionInput ({word, addDefinition}){
           console.error(error);
         }
     };
+
+    const fetchAiDefinition = async () => {
+        try {
+          const {data} = await axiosInstance.get(`/tasks/definition/ai?wordID=${word.wordID}`); 
+          setAiDefinition(data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    // פונקציה לעדכון הערך של תיבת הטקסט
+    const handleAiDefinitionChange = (e) => {
+        setAiDefinition(e.target.value);
+    }
 
     const createDefinition = async (definition) => {
         try {
@@ -47,7 +62,8 @@ function DefinitionInput ({word, addDefinition}){
        addDefinition (id); 
     }
 
-    return (<div>
+    return (
+      <div>
         {word.wordName} : Chose Definition 
          <ul>
         {suggestions.map((definition) => (
@@ -56,7 +72,58 @@ function DefinitionInput ({word, addDefinition}){
           </li>
         ))}
       </ul>
+      <button
+        onClick={fetchAiDefinition}
+        style={{
+          background: "#4b6cb7",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          padding: "8px 18px",
+          marginTop: "1em",
+          marginBottom: "0.5em",
+          fontWeight: "bold",
+          fontSize: "1em",
+          cursor: "pointer",
+          boxShadow: "0 2px 6px #0002"
+        }}
+      >
+        <span role="img" aria-label="ai" style={{marginRight: "6px"}}>✨</span>
+        Fetch AI definition
+      </button>
+      <br />
+      <textarea
+        value={aiDefinition || ""}
+        onChange={handleAiDefinitionChange}
+        placeholder="ai definition"
+        style={{
+          width: "100%",
+          minHeight: "60px",
+          marginTop: "0.5em",
+          border: "2px solid #4b6cb7",
+          borderRadius: "6px",
+          padding: "8px",
+          fontSize: "1em"
+        }}
+      />
+      <button
+        onClick={() => selectDefinition({definition: aiDefinition})}
+        style={{
+          background: "#ff9800",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          padding: "8px 18px",
+          marginTop: "0.5em",
+          fontWeight: "bold",
+          fontSize: "1em",
+          cursor: "pointer",
+          boxShadow: "0 2px 6px #0002"
+        }}
+      >
+        Add AI Definition
+      </button>
     </div>)
 }
 
-export default DefinitionInput; 
+export default DefinitionInput;
